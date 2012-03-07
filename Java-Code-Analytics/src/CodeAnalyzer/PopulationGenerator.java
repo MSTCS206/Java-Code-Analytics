@@ -1,3 +1,5 @@
+package CodeAnalyzer;
+
 
 public class PopulationGenerator 
 {
