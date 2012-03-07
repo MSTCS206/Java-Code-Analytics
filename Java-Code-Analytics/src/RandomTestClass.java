@@ -1,4 +1,5 @@
 
-public class RandomTestClass {
-//h
+public class RandomTestClass 
+{
+
 }
