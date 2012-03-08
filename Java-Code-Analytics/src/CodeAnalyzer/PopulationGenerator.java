@@ -6,7 +6,7 @@ public class PopulationGenerator
 
 	public PopulationGenerator() 
 	{
-
+		
 	}
 
 	public static void main(String[] args) 
