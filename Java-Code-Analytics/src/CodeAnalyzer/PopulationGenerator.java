@@ -1,5 +1,6 @@
 package CodeAnalyzer;
 
+import FileChooser;
 
 public class PopulationGenerator 
 {

@@ -20,4 +20,26 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sourceforge.metrics.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/CodeAnalyzer/Op.java</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/CodeAnalyzer/Rules/Op.java</locationURI>
+		</link>
+		<link>
+			<name>src/CodeAnalyzer/QualityMetric.java</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/CodeAnalyzer/Rules/QualityMetric.java</locationURI>
+		</link>
+		<link>
+			<name>src/CodeAnalyzer/Rule.java</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/CodeAnalyzer/Rules/Rule.java</locationURI>
+		</link>
+		<link>
+			<name>src/CodeAnalyzer/RulesGenerator.java</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/CodeAnalyzer/Rules/RulesGenerator.java</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
