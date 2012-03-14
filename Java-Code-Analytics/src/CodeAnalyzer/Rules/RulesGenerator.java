@@ -9,6 +9,8 @@ public class RulesGenerator
 {
 	private Random random;
 	
+	//this is the depth of the tree
+	//note, depth=1 makes root node + children
 	private int depth;
 	
 	public RulesGenerator(int maxdepth)
