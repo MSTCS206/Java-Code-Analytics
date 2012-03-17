@@ -16,7 +16,7 @@ public class RulesGenerator
 	public RulesGenerator(int maxdepth)
 	{
 		depth = maxdepth;
-		
+
 		random = new Random();
 	}
 	
