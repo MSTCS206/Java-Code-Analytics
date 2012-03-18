@@ -1,6 +1,7 @@
 package CodeAnalyzer.Parser;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.parsers.*;
@@ -21,9 +22,11 @@ public class XMLParser
 	
 	public List<SummaryItem> getFragments()
 	{
+		HashMap<String, SummaryItem> summaryMapClasses = new HashMap<String, SummaryItem>();
+		HashMap<String, SummaryItem> summaryMapMethods = new HashMap<String, SummaryItem>();
+		
 		try
 		{
-			HashMap<String, SummaryItem> summaryMap = new HashMap<String, SummaryItem>();
 			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -44,7 +47,7 @@ public class XMLParser
 					
 					if(el.hasAttribute("id"))
 					{
-						NodeList values = ((Element)el.getFirstChild()).getElementsByTagName("Value");
+						NodeList values = el.getElementsByTagName("Value");
 						
 						//Weeee for Java7 allowing strings in switch cases :)
 						switch(el.getAttribute("id"))
@@ -54,16 +57,19 @@ public class XMLParser
 								{
 									Element val = (Element)values.item(j);
 									
-									if(summaryMap.containsKey(val.getAttribute("name")))
+									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										summaryMap.get(val.getAttribute("name")).getMetrics().put("NOM", Double.parseDouble(val.getAttribute("value")));
+										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("NOM", Double.parseDouble(val.getAttribute("value")));
+										
+										System.out.println("Adding to NOM " + val.getAttribute("name"));
 									}
 									else
 									{
-										SummaryItem item = new SummaryItem(val.getAttribute("name"), SummaryType.Class);
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
 										item.getMetrics().put("NOM", Double.parseDouble(val.getAttribute("value")));
 										
-										summaryMap.put(val.getAttribute("name"), item);
+										summaryMapClasses.put(val.getAttribute("name"), item);
+										System.out.println("Creating NOM " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -73,16 +79,18 @@ public class XMLParser
 								{
 									Element val = (Element)values.item(j);
 									
-									if(summaryMap.containsKey(val.getAttribute("name")))
+									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										summaryMap.get(val.getAttribute("name")).getMetrics().put("NOF", Double.parseDouble(val.getAttribute("value")));
+										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("NOF", Double.parseDouble(val.getAttribute("value")));
+										System.out.println("Adding to NOF " + val.getAttribute("name"));
 									}
 									else
 									{
-										SummaryItem item = new SummaryItem(val.getAttribute("name"), SummaryType.Class);
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
 										item.getMetrics().put("NOF", Double.parseDouble(val.getAttribute("value")));
 										
-										summaryMap.put(val.getAttribute("name"), item);
+										summaryMapClasses.put(val.getAttribute("name"), item);
+										System.out.println("Creating NOF " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -92,16 +100,40 @@ public class XMLParser
 								{
 									Element val = (Element)values.item(j);
 									
-									if(summaryMap.containsKey(val.getAttribute("name")))
+									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
-										summaryMap.get(val.getAttribute("name")).getMetrics().put("MLOC", Double.parseDouble(val.getAttribute("value")));
+										summaryMapMethods.get(val.getAttribute("name")).getMetrics().put("MLOC", Double.parseDouble(val.getAttribute("value")));
+										System.out.println("Adding to MLOC " + val.getAttribute("name"));
 									}
 									else
 									{
-										SummaryItem item = new SummaryItem("", val.getAttribute("name"), SummaryType.Method);
+										SummaryItem item = new SummaryItem("", val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
 										item.getMetrics().put("MLOC", Double.parseDouble(val.getAttribute("value")));
 										
-										summaryMap.put(val.getAttribute("name"), item);
+										summaryMapMethods.put(val.getAttribute("name"), item);
+										System.out.println("Creating MLOC " + val.getAttribute("name"));
+									}
+								}
+								break;
+								
+							case "DIT":
+								for(int j = 0; j < values.getLength(); j++)
+								{
+									Element val = (Element)values.item(j);
+									
+									if(summaryMapClasses.containsKey(val.getAttribute("name")))
+									{
+										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("DIT", Double.parseDouble(val.getAttribute("value")));
+										System.out.println("Adding to DIT " + val.getAttribute("name"));
+									}
+									else
+									{
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
+										item.getMetrics().put("DIT", Double.parseDouble(val.getAttribute("value")));
+										
+										summaryMapClasses.put(val.getAttribute("name"), item);
+										
+										System.out.println("Creating DIT " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -112,9 +144,11 @@ public class XMLParser
 		}
 		catch(Exception ex)
 		{
-			
+			System.out.println(ex);
 		}
 		
-		return null;
+		List<SummaryItem> temp = new LinkedList<SummaryItem>(summaryMapClasses.values());
+		temp.addAll(summaryMapMethods.values());
+		return temp;
 	}
 }

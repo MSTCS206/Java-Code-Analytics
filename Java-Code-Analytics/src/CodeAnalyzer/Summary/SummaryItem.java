@@ -12,23 +12,26 @@ public class SummaryItem
 	
 	private String className;
 	private String methodName;
+	private String source;
 	private SummaryType type;
 	
 	private HashMap<String, Double> metrics;
 	
-	public SummaryItem(String clas, String method, SummaryType type)
+	public SummaryItem(String clas, String method, String source, SummaryType type)
 	{
 		this.className = clas;
 		this.methodName = method;
+		this.source = source;
 		this.type = type;
 		
 		metrics = new HashMap<String, Double>();	
 	}
 	
-	public SummaryItem(String clas, SummaryType type)
+	public SummaryItem(String clas, String source, SummaryType type)
 	{
 		this.className = clas;
 		this.methodName = "";
+		this.source = source;
 		this.type = type;
 		
 		metrics = new HashMap<String, Double>();
