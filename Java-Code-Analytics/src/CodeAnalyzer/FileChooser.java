@@ -1,77 +1,143 @@
 package CodeAnalyzer;
 
 import java.awt.BorderLayout;
+
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener; 
 
+import java.io.File;
 import javax.swing.JButton; 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class FileChooser extends JFrame 
 {
-	private JTextField filename = new JTextField(), dir = new JTextField();
+	private JTextField codeExampleTextField = new JTextField(), targetCodeTextField = new JTextField();
 	
-	private JButton open =  new JButton("Open"), save = new JButton("Save");
+	private JButton chooseCodeExampleButton =  new JButton("Choose Code Example"),
+			chooseTargetExampleButton = new JButton("Choose Target Code"),
+			goButton = new JButton("Go!");
 	
 	public FileChooser()
 	{
 		JPanel p = new JPanel();
-		open.addActionListener( new OpenL());
-		p.add(open);
-		save.addActionListener(new SaveL());
-		p.add(save);
+		chooseCodeExampleButton.addActionListener( new CodeExamplePressed());
+		p.add(chooseCodeExampleButton);
+		chooseTargetExampleButton.addActionListener(new TargetExamplePressed());
+		p.add(chooseTargetExampleButton);
+		
+		goButton.addActionListener(new GoPressed());
+		p.add(goButton);
+		
 		Container cp = getContentPane();
 		cp.add(p, BorderLayout.SOUTH);
-		dir.setEditable(false);
-		filename.setEditable(false);
+		targetCodeTextField.setEditable(false);
+		codeExampleTextField.setEditable(false);
 		p = new JPanel();
 		p.setLayout(new GridLayout(2,1));
-		p.add(filename);
-		p.add(dir);
+		p.add(codeExampleTextField);
+		p.add(targetCodeTextField);
 		cp.add(p, BorderLayout.NORTH);
 	}
 	
-	class OpenL implements ActionListener
+	class CodeExamplePressed implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			JFileChooser c = new JFileChooser();
-			// Demonstrate "Save" dialog
-			int rVal = c.showSaveDialog(FileChooser.this);
+			
+			c.addChoosableFileFilter(new FileFilter() {
+
+	            // Handles which files are allowed by filter.
+	            @Override
+	            public boolean accept(File f) {
+	                
+	                // Allow directories to be seen.
+	                if (f.isDirectory()) return true;
+
+	                // Allows files with .xml extension to be seen.
+	                if (f.getName().toLowerCase().endsWith(".xml"))
+	                    return true;
+
+	                // Otherwise file is not shown.
+	                return false;
+	            }
+
+	            // 'Files of Type' description
+	            @Override
+	            public String getDescription() {
+	                return "*.xml";
+	            }
+	        });
+			
+			c.setAcceptAllFileFilterUsed(false);
+			// open dialog
+			int rVal = c.showOpenDialog(FileChooser.this);
 			if (rVal == JFileChooser.APPROVE_OPTION)
 			{
-				filename.setText(c.getSelectedFile().getName());
-				dir.setText(c.getCurrentDirectory().toString());
+				codeExampleTextField.setText(c.getCurrentDirectory().toString()+"/"+c.getSelectedFile().getName());
 			}
 			if (rVal == JFileChooser.CANCEL_OPTION)
 			{
-				filename.setText("You pressed cancel");
+				//codeExampleTextField.setText("You pressed cancel");
 			}
 		}
 	}
 	
-	class SaveL implements ActionListener
+	class TargetExamplePressed implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			JFileChooser c = new JFileChooser();
-			// save dialog
-			int rVal = c.showSaveDialog(FileChooser.this);
+			// open dialog
+			
+			c.addChoosableFileFilter(new FileFilter() {
+
+	            // Handles which files are allowed by filter.
+	            @Override
+	            public boolean accept(File f) {
+	                
+	                // Allow directories to be seen.
+	                if (f.isDirectory()) return true;
+
+	                // Allows files with .xml extension to be seen.
+	                if (f.getName().toLowerCase().endsWith(".xml"))
+	                    return true;
+
+	                // Otherwise file is not shown.
+	                return false;
+	            }
+
+	            // 'Files of Type' description
+	            @Override
+	            public String getDescription() {
+	                return "*.xml";
+	            }
+	        });
+			
+			c.setAcceptAllFileFilterUsed(false);
+			
+			int rVal = c.showOpenDialog(FileChooser.this);
 			if (rVal == JFileChooser.APPROVE_OPTION)
 			{
-				filename.setText(c.getSelectedFile().getName());
-				dir.setText(c.getCurrentDirectory().toString());
+				targetCodeTextField.setText(c.getCurrentDirectory().toString()+"/"+c.getSelectedFile().getName());
 			}
 			if (rVal == JFileChooser.CANCEL_OPTION)
 			{
-				filename.setText("You pressed cancel");
-				dir.setText("");
+				//targetCodeTextField.setText("You pressed cancel");
 			}
+		}
+	}
+	class GoPressed implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			System.out.print("go button pressed\n");
 		}
 	}
 }

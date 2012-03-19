@@ -11,7 +11,7 @@ public class PopulationGenerator
 		Node root = gen.generateRules();
 		
 		FileChooser c = new FileChooser();
-		c.setSize(200, 350);
+		c.setSize(500, 350);
 		c.setVisible(true);
 	
 	}
