@@ -8,6 +8,7 @@ import javax.xml.parsers.*;
 
 import org.w3c.dom.*;
 
+import CodeAnalyzer.Rules.QualityMetric;
 import CodeAnalyzer.Summary.*;
 import CodeAnalyzer.Summary.SummaryItem.SummaryType;
 
@@ -62,7 +63,7 @@ public class MetricsParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "NOM", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.NOM, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to NOM " + val.getAttribute("name"));
 									}
@@ -70,7 +71,7 @@ public class MetricsParser
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
 										
-										updateSummaryItem(item, "NOM", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.NOM, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										System.out.println("Creating NOM " + val.getAttribute("name"));
@@ -85,7 +86,7 @@ public class MetricsParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "NOF", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.NOF, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to NOF " + val.getAttribute("name"));
 									}
@@ -93,7 +94,7 @@ public class MetricsParser
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
 										
-										updateSummaryItem(item, "NOF", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.NOF, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										System.out.println("Creating NOF " + val.getAttribute("name"));
@@ -108,14 +109,14 @@ public class MetricsParser
 									
 									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), "MLOC", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), QualityMetric.MLOC, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to MLOC " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
-										updateSummaryItem(item, "MLOC", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.MLOC, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
 										System.out.println("Creating MLOC " + val.getAttribute("name"));
@@ -130,14 +131,14 @@ public class MetricsParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "DIT", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.DIT, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to DIT " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
-										updateSummaryItem(item, "DIT", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.DIT, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										
@@ -153,14 +154,14 @@ public class MetricsParser
 									
 									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), "PAR", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), QualityMetric.PAR, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to PAR " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
-										updateSummaryItem(item, "PAR", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.PAR, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
 										
@@ -176,14 +177,14 @@ public class MetricsParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "LCOM", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.LCOM, Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to LCOME " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
-										updateSummaryItem(item, "LCOM", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, QualityMetric.LCOM, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										
@@ -207,7 +208,7 @@ public class MetricsParser
 	}
 	
 	
-	private void updateSummaryItem(SummaryItem item, String key, double value)
+	private void updateSummaryItem(SummaryItem item, QualityMetric key, double value)
 	{
 		if(item.getMetrics().containsKey(key))
 		{

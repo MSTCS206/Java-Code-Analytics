@@ -2,5 +2,10 @@ package CodeAnalyzer.Rules;
 
 public enum QualityMetric 
 {
-	LOC
+	NOM,
+	NOF,
+	MLOC,
+	DIT,
+	PAR,
+	LCOM
 }

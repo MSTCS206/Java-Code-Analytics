@@ -2,6 +2,8 @@ package CodeAnalyzer.Summary;
 
 import java.util.HashMap;
 
+import CodeAnalyzer.Rules.QualityMetric;
+
 public class SummaryItem 
 {
 	public enum SummaryType
@@ -14,7 +16,7 @@ public class SummaryItem
 	private String source;
 	private SummaryType type;
 	
-	private HashMap<String, Double> metrics;
+	private HashMap<QualityMetric, Double> metrics;
 	
 	public SummaryItem(String name, String source, SummaryType type)
 	{
@@ -22,7 +24,7 @@ public class SummaryItem
 		this.source = source;
 		this.type = type;
 		
-		metrics = new HashMap<String, Double>();	
+		metrics = new HashMap<QualityMetric, Double>();	
 	}
 	
 	public SummaryItem(String name, SummaryType type)
@@ -31,10 +33,10 @@ public class SummaryItem
 		this.source = "";
 		this.type = type;
 		
-		metrics = new HashMap<String, Double>();
+		metrics = new HashMap<QualityMetric, Double>();
 	}
 	
-	public HashMap<String, Double> getMetrics()
+	public HashMap<QualityMetric, Double> getMetrics()
 	{
 		return metrics;
 	}
