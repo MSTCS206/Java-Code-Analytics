@@ -10,28 +10,25 @@ public class SummaryItem
 		Method
 	}
 	
-	private String className;
-	private String methodName;
+	private String name;
 	private String source;
 	private SummaryType type;
 	
 	private HashMap<String, Double> metrics;
 	
-	public SummaryItem(String clas, String method, String source, SummaryType type)
+	public SummaryItem(String name, String source, SummaryType type)
 	{
-		this.className = clas;
-		this.methodName = method;
+		this.name = name;
 		this.source = source;
 		this.type = type;
 		
 		metrics = new HashMap<String, Double>();	
 	}
 	
-	public SummaryItem(String clas, String source, SummaryType type)
+	public SummaryItem(String name, SummaryType type)
 	{
-		this.className = clas;
-		this.methodName = "";
-		this.source = source;
+		this.name = name;
+		this.source = "";
 		this.type = type;
 		
 		metrics = new HashMap<String, Double>();
@@ -42,14 +39,14 @@ public class SummaryItem
 		return metrics;
 	}
 	
-	public String getClassName()
+	public String getName()
 	{
-		return className;
+		return name;
 	}
 	
-	public String getMethodName()
+	public String getSource()
 	{
-		return methodName;
+		return source;
 	}
 	
 	public SummaryType getSummaryType()

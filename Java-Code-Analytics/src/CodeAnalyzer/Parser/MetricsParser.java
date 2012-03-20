@@ -114,7 +114,7 @@ public class MetricsParser
 									}
 									else
 									{
-										SummaryItem item = new SummaryItem("", val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
 										updateSummaryItem(item, "MLOC", Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
@@ -144,6 +144,52 @@ public class MetricsParser
 										System.out.println("Creating DIT " + val.getAttribute("name"));
 									}
 								}
+								break;
+							
+							case "PAR":
+								for(int j = 0; j < values.getLength(); j++)
+								{
+									Element val = (Element)values.item(j);
+									
+									if(summaryMapMethods.containsKey(val.getAttribute("name")))
+									{
+										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), "PAR", Double.parseDouble(val.getAttribute("value")));
+										
+										System.out.println("Adding to PAR " + val.getAttribute("name"));
+									}
+									else
+									{
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
+										updateSummaryItem(item, "PAR", Double.parseDouble(val.getAttribute("value")));
+										
+										summaryMapMethods.put(val.getAttribute("name"), item);
+										
+										System.out.println("Creating PAR " + val.getAttribute("name"));
+									}
+								}
+								break;
+								
+							case "LCOM":
+								for(int j = 0; j < values.getLength(); j++)
+								{
+									Element val = (Element)values.item(j);
+									
+									if(summaryMapClasses.containsKey(val.getAttribute("name")))
+									{
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "LCOM", Double.parseDouble(val.getAttribute("value")));
+										
+										System.out.println("Adding to LCOME " + val.getAttribute("name"));
+									}
+									else
+									{
+										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
+										updateSummaryItem(item, "LCOM", Double.parseDouble(val.getAttribute("value")));
+										
+										summaryMapClasses.put(val.getAttribute("name"), item);
+										
+										System.out.println("Creating LCOM " + val.getAttribute("name"));
+									}
+								}	
 								break;
 						}
 					}
