@@ -11,14 +11,14 @@ import org.w3c.dom.*;
 import CodeAnalyzer.Summary.*;
 import CodeAnalyzer.Summary.SummaryItem.SummaryType;
 
-public class XMLParser 
+public class MetricsParser 
 {
 	private String xmlFile;
 	
 	HashMap<String, SummaryItem> summaryMapClasses;
 	HashMap<String, SummaryItem> summaryMapMethods;
 	
-	public XMLParser(String xmlFile)
+	public MetricsParser(String xmlFile)
 	{
 		this.xmlFile = xmlFile;
 	}
