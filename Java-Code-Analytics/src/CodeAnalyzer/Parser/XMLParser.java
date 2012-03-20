@@ -15,15 +15,18 @@ public class XMLParser
 {
 	private String xmlFile;
 	
+	HashMap<String, SummaryItem> summaryMapClasses;
+	HashMap<String, SummaryItem> summaryMapMethods;
+	
 	public XMLParser(String xmlFile)
 	{
 		this.xmlFile = xmlFile;
 	}
 	
 	public List<SummaryItem> getFragments()
-	{
-		HashMap<String, SummaryItem> summaryMapClasses = new HashMap<String, SummaryItem>();
-		HashMap<String, SummaryItem> summaryMapMethods = new HashMap<String, SummaryItem>();
+	{		
+		summaryMapClasses = new HashMap<String, SummaryItem>();
+		summaryMapMethods = new HashMap<String, SummaryItem>();
 		
 		try
 		{
@@ -59,14 +62,15 @@ public class XMLParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("NOM", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "NOM", Double.parseDouble(val.getAttribute("value")));
 										
 										System.out.println("Adding to NOM " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
-										item.getMetrics().put("NOM", Double.parseDouble(val.getAttribute("value")));
+										
+										updateSummaryItem(item, "NOM", Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										System.out.println("Creating NOM " + val.getAttribute("name"));
@@ -81,13 +85,15 @@ public class XMLParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("NOF", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "NOF", Double.parseDouble(val.getAttribute("value")));
+										
 										System.out.println("Adding to NOF " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
-										item.getMetrics().put("NOF", Double.parseDouble(val.getAttribute("value")));
+										
+										updateSummaryItem(item, "NOF", Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										System.out.println("Creating NOF " + val.getAttribute("name"));
@@ -102,13 +108,14 @@ public class XMLParser
 									
 									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
-										summaryMapMethods.get(val.getAttribute("name")).getMetrics().put("MLOC", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), "MLOC", Double.parseDouble(val.getAttribute("value")));
+										
 										System.out.println("Adding to MLOC " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem("", val.getAttribute("name"), val.getAttribute("source"), SummaryType.Method);
-										item.getMetrics().put("MLOC", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, "MLOC", Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
 										System.out.println("Creating MLOC " + val.getAttribute("name"));
@@ -123,13 +130,14 @@ public class XMLParser
 									
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
-										summaryMapClasses.get(val.getAttribute("name")).getMetrics().put("DIT", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), "DIT", Double.parseDouble(val.getAttribute("value")));
+										
 										System.out.println("Adding to DIT " + val.getAttribute("name"));
 									}
 									else
 									{
 										SummaryItem item = new SummaryItem(val.getAttribute("name"), val.getAttribute("source"), SummaryType.Class);
-										item.getMetrics().put("DIT", Double.parseDouble(val.getAttribute("value")));
+										updateSummaryItem(item, "DIT", Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
 										
@@ -150,5 +158,18 @@ public class XMLParser
 		List<SummaryItem> temp = new LinkedList<SummaryItem>(summaryMapClasses.values());
 		temp.addAll(summaryMapMethods.values());
 		return temp;
+	}
+	
+	
+	private void updateSummaryItem(SummaryItem item, String key, double value)
+	{
+		if(item.getMetrics().containsKey(key))
+		{
+			//pick the better value
+		}
+		else
+		{
+			item.getMetrics().put(key,  value);
+		}
 	}
 }
