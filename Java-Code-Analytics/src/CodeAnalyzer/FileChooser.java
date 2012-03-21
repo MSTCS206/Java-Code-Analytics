@@ -14,10 +14,18 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class FileChooser extends JFrame 
 {
-	private JTextField codeExampleTextField = new JTextField(), targetCodeTextField = new JTextField();
+	private JTextField codeExampleTextField = new JTextField(), targetCodeTextField = new JTextField(), numIterationsTextField = new JTextField(), numSolutionsTextField = new JTextField();
+	private JTextField maxNumRulesPerSolutionTextField = new JTextField();
+	
+	private JLabel codeExampleLabel = new JLabel("Code Example Path");
+	private JLabel targetExampleLabel = new JLabel("Target Path");
+	private JLabel numIterationsLabel = new JLabel("Num Iterations");
+	private JLabel numSolutionsLabel = new JLabel("Num Solutions");
+	private JLabel maxRulesPerSolutionTextField = new JLabel("Rule Depth Per Solution");
 	
 	private JButton chooseCodeExampleButton =  new JButton("Choose Code Example"),
 			chooseTargetExampleButton = new JButton("Choose Target Code"),
@@ -38,10 +46,27 @@ public class FileChooser extends JFrame
 		cp.add(p, BorderLayout.SOUTH);
 		targetCodeTextField.setEditable(false);
 		codeExampleTextField.setEditable(false);
+		numIterationsTextField.setEditable(true);
+		
 		p = new JPanel();
-		p.setLayout(new GridLayout(2,1));
+		p.setLayout(new GridLayout(5,2));
+		
+		p.add(codeExampleLabel);
 		p.add(codeExampleTextField);
+
+		p.add(targetExampleLabel);
 		p.add(targetCodeTextField);
+
+
+		p.add(numIterationsLabel);
+		p.add(numIterationsTextField);
+
+		p.add(numSolutionsLabel);
+		p.add(numSolutionsTextField);
+
+		p.add(maxRulesPerSolutionTextField);
+		p.add(maxNumRulesPerSolutionTextField);
+
 		cp.add(p, BorderLayout.NORTH);
 	}
 	
