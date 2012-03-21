@@ -3,6 +3,7 @@ package CodeAnalyzer.Summary;
 import java.util.List;
 
 import CodeAnalyzer.Rules.Node;
+import CodeAnalyzer.Rules.RulesGenerator;
 
 public class Individual 
 {
@@ -34,4 +35,8 @@ public class Individual
 		return summary;
 	}
 	
+	public String getRuleString()
+	{
+		return RulesGenerator.returnRuleString(rules);
+	}
 }

@@ -55,4 +55,16 @@ public class SummaryItem
 	{
 		return type;
 	}
+	
+	public String toString()
+	{
+		if(type == SummaryType.Class)
+		{
+			return name + " Class";
+		}
+		else
+		{
+			return name + " Method";
+		}
+	}
 }

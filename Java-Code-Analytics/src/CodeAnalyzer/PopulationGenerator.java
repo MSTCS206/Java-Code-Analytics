@@ -19,7 +19,7 @@ public class PopulationGenerator
 		*/
 		
 		RulesGenerator gen = new RulesGenerator(3);
-		System.out.println(gen.returnRuleString(gen.generateRules()));
+		System.out.println(RulesGenerator.returnRuleString(gen.generateRules()));
 		
 		FileChooser c = new FileChooser();
 		c.setSize(500, 350);

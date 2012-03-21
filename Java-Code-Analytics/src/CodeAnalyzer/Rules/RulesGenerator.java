@@ -97,7 +97,7 @@ public class RulesGenerator
 		return temp;
 	}
 	
-	public String returnRuleString(Node root)
+	public static String returnRuleString(Node root)
 	{
 		if(root == null)
 			return "";
