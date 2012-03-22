@@ -7,6 +7,21 @@ import CodeAnalyzer.Rules.Node.NodeType;
 
 public class RulesGenerator 
 {
+	//static information for holding the last ruleset that helped make the 'best' solution
+	private static Node lastBestRuleset;
+	
+	public static Node getLastBestRuleset()
+	{
+		return lastBestRuleset;
+	}
+	
+	public static void setLastBestRuleset(Node last)
+	{
+		lastBestRuleset = last;
+	}
+	
+	
+	
 	private Random random;
 	
 	//this is the depth of the tree

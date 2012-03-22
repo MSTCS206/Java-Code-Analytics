@@ -209,7 +209,6 @@ public class FileChooser extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			System.out.print("go button pressed\n");
 			DialogueGUI c = new DialogueGUI();
 			c.setSize(500, 350);
 			c.setVisible(true);
@@ -220,32 +219,51 @@ public class FileChooser extends JFrame
 			Evaluator eval = new Evaluator(mParser.getFragments());
 			FitnessFunction fitness = new FitnessFunction();
 			
-			List<Individual> best = new LinkedList<Individual>();
-			
-			for(int j = 0; j < Integer.parseInt(numIterationsTextField.getText()); j++)
+			if(useRulesGeneratorRadioButton.isSelected() && !useLastRulesRadioButton.isSelected())
 			{
-				List<Individual> solutions = new LinkedList<Individual>();
 			
-				for(int i = 0; i < Integer.parseInt(numSolutionsTextField.getText()); i++)
+				List<Individual> best = new LinkedList<Individual>();
+			
+				for(int j = 0; j < Integer.parseInt(numIterationsTextField.getText()); j++)
 				{
-					RulesGenerator gen = new RulesGenerator(Integer.parseInt(maxNumRulesPerSolutionTextField.getText()));
+					List<Individual> solutions = new LinkedList<Individual>();
 			
-					Individual indv = new Individual();
-					indv.setRules(gen.generateRules());
+					for(int i = 0; i < Integer.parseInt(numSolutionsTextField.getText()); i++)
+					{
+						RulesGenerator gen = new RulesGenerator(Integer.parseInt(maxNumRulesPerSolutionTextField.getText()));
 			
-					eval.Evaluate(indv);
+						Individual indv = new Individual();
+						indv.setRules(gen.generateRules());
+			
+						eval.Evaluate(indv);
 				
-					solutions.add(indv);
+						solutions.add(indv);
+					}
+			
+				
+					best.add(fitness.getBestFitness(sParser.getSummaryItems(), solutions));
 				}
 			
-				
-				best.add(fitness.getBestFitness(sParser.getSummaryItems(), solutions));
+				Individual bestest = fitness.getBestFitness(sParser.getSummaryItems(), best);
+			
+				RulesGenerator.setLastBestRuleset(bestest.getRules());
+			
+				IndividualWriter writer = new IndividualWriter();
+				writer.writeToFile("results.txt", bestest);
 			}
-			
-			Individual bestest = fitness.getBestFitness(sParser.getSummaryItems(), best);
-			
-			IndividualWriter writer = new IndividualWriter();
-			writer.writeToFile("results.txt", bestest);
+			else if(!useRulesGeneratorRadioButton.isSelected() && useLastRulesRadioButton.isSelected())//saftey check in case the radiogroup doesn't work properly
+			{
+				if(RulesGenerator.getLastBestRuleset() != null)
+				{
+					Individual bestest = new Individual();
+					bestest.setRules(RulesGenerator.getLastBestRuleset());
+				
+					eval.Evaluate(bestest);
+					
+					IndividualWriter writer = new IndividualWriter();
+					writer.writeToFile("results-crossvalidation.txt", bestest);
+				}
+			}
 		}
 	}
 }
