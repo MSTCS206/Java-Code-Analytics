@@ -16,11 +16,13 @@ public class IndividualWriter
 			  FileWriter fstream = new FileWriter(file);
 			  BufferedWriter out = new BufferedWriter(fstream);
 			  
-			  out.write("RULE: " + indv.getRuleString());
-			  out.write("SUMMARY: ");
+			  out.write("RULE: " + indv.getRuleString() + "\r\n");
+			  out.write("SUMMARY: \r\n");
+			  out.flush();
 			  for(SummaryItem item : indv.getSummary())
 			  {
-				  out.write(item.toString());
+				  out.write(item.toString() + "\r\n");
+				  out.flush();
 			  }
 			  
 			  //Close the output stream

@@ -21,13 +21,23 @@ public class FitnessFunction
         for(int Ind=0; Ind < Generated.size(); Ind++)
         {
             Individual current = Generated.get(Ind);
-            float Sum = 0;
-            for(int i=0;i<Generated.size();i++)
+            
+            if(current.getSummary().size() < 1)
             {
-                if(Example.contains(current.getSummary().get(i)))
-                {
-                    Sum++;
-                }
+            	continue;
+            }
+            
+            float Sum = 0;
+            for(int i=0;i<current.getSummary().size();i++)
+            {
+            	for(SummaryItem itm : Example)
+            	{
+            		if(itm.getName().equals(current.getSummary().get(i).getName()))
+            		{
+            			Sum++;
+            			break;
+            		}
+            	}
             }
             
             float currentFitness = (Sum/current.getSummary().size()+Sum/Example.size())/2;
@@ -42,6 +52,7 @@ public class FitnessFunction
                 bestFitness = currentFitness;
             }
         }
+
         return mostFit;
     }
 }
