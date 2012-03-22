@@ -36,9 +36,9 @@ public class Evaluator {
 
 	private boolean evalTree(Node rulenode, SummaryItem sumItem)   // Uses recursion to evaluate the expression tree
 	{
-		if(rulenode.getNodeType() == Boolean)
+		if(rulenode.getNodeType() == NodeType.Boolean)
 		{
-			if(rulenode.getBooleanType() == And)
+			if(rulenode.getBooleanType() == BooleanType.And)
 			{
 				return( evalTree(rulenode.getLeftChild(), sumItem) && evalTree(rulenode.getRightChild(), sumItem));  //recursive call 
 			} 
@@ -56,6 +56,9 @@ public class Evaluator {
 	
 	private boolean evalRule(Rule rule, SummaryItem sumItem)
 	{
+		if(sumItem.getMetrics().get(rule.getMetric()) == null)
+			return false;
+		
 		switch( rule.getCompare() )
 		{
 			case GT:

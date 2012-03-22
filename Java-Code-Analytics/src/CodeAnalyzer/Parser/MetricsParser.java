@@ -64,8 +64,6 @@ public class MetricsParser
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.NOM, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to NOM " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -74,7 +72,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.NOM, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
-										System.out.println("Creating NOM " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -87,8 +84,6 @@ public class MetricsParser
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.NOF, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to NOF " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -97,7 +92,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.NOF, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
-										System.out.println("Creating NOF " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -110,8 +104,6 @@ public class MetricsParser
 									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), QualityMetric.MLOC, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to MLOC " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -119,7 +111,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.MLOC, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
-										System.out.println("Creating MLOC " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -132,8 +123,6 @@ public class MetricsParser
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.DIT, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to DIT " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -141,8 +130,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.DIT, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
-										
-										System.out.println("Creating DIT " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -155,8 +142,6 @@ public class MetricsParser
 									if(summaryMapMethods.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapMethods.get(val.getAttribute("name")), QualityMetric.PAR, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to PAR " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -164,8 +149,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.PAR, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapMethods.put(val.getAttribute("name"), item);
-										
-										System.out.println("Creating PAR " + val.getAttribute("name"));
 									}
 								}
 								break;
@@ -178,8 +161,6 @@ public class MetricsParser
 									if(summaryMapClasses.containsKey(val.getAttribute("name")))
 									{
 										updateSummaryItem(summaryMapClasses.get(val.getAttribute("name")), QualityMetric.LCOM, Double.parseDouble(val.getAttribute("value")));
-										
-										System.out.println("Adding to LCOME " + val.getAttribute("name"));
 									}
 									else
 									{
@@ -187,8 +168,6 @@ public class MetricsParser
 										updateSummaryItem(item, QualityMetric.LCOM, Double.parseDouble(val.getAttribute("value")));
 										
 										summaryMapClasses.put(val.getAttribute("name"), item);
-										
-										System.out.println("Creating LCOM " + val.getAttribute("name"));
 									}
 								}	
 								break;

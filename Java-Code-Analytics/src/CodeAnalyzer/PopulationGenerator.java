@@ -11,15 +11,11 @@ public class PopulationGenerator
 
 	public PopulationGenerator() 
 	{
-		/*RulesGenerator gen = new RulesGenerator(2);
-		Node root = gen.generateRules();
-		
-		MetricsParser p = new MetricsParser("C:\\Users\\RyanGamer\\Desktop\\CS206\\JLayer-Metrics.xml");
-		List<SummaryItem> s = p.getFragments();
-		*/
 		FileChooser c = new FileChooser();
 		c.setSize(500, 350);
 		c.setVisible(true);
+		
+		
 	
 	}
 

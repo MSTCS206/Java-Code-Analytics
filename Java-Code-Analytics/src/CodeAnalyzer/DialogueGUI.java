@@ -8,11 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.ImageIcon;
 
 
 public class DialogueGUI extends JFrame
 {
 	private JProgressBar progressBar = new JProgressBar();
+	private JLabel titleLabel = new JLabel("Processing Rules");
 	
 	public DialogueGUI()
 	{

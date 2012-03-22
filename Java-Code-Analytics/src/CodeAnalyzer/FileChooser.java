@@ -1,3 +1,7 @@
+// Tutorials
+// Radio Buttons: http://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+
+
 package CodeAnalyzer;
 
 import java.awt.BorderLayout;
@@ -9,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JButton; 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -17,9 +24,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+
 import javax.swing.JRadioButton;
 
 import CodeAnalyzer.DialogueGUI;
+
+import CodeAnalyzer.Parser.MetricsParser;
+import CodeAnalyzer.Parser.SourceParser;
+import CodeAnalyzer.Rules.RulesGenerator;
+import CodeAnalyzer.RulesEvaluator.Evaluator;
+import CodeAnalyzer.Summary.Individual;
+import CodeAnalyzer.Writer.IndividualWriter;
 
 public class FileChooser extends JFrame 
 {
@@ -198,6 +213,39 @@ public class FileChooser extends JFrame
 			DialogueGUI c = new DialogueGUI();
 			c.setSize(500, 350);
 			c.setVisible(true);
+
+			MetricsParser mParser = new MetricsParser(targetCodeTextField.getText());
+			SourceParser sParser = new SourceParser(codeExampleTextField.getText());
+			
+			Evaluator eval = new Evaluator(mParser.getFragments());
+			FitnessFunction fitness = new FitnessFunction();
+			
+			List<Individual> best = new LinkedList<Individual>();
+			
+			for(int j = 0; j < Integer.parseInt(numIterationsTextField.getText()); j++)
+			{
+				List<Individual> solutions = new LinkedList<Individual>();
+			
+				for(int i = 0; i < Integer.parseInt(numSolutionsTextField.getText()); i++)
+				{
+					RulesGenerator gen = new RulesGenerator(Integer.parseInt(maxNumRulesPerSolutionTextField.getText()));
+			
+					Individual indv = new Individual();
+					indv.setRules(gen.generateRules());
+			
+					eval.Evaluate(indv);
+				
+					solutions.add(indv);
+				}
+			
+				
+				best.add(fitness.getBestFitness(sParser.getSummaryItems(), solutions));
+			}
+			
+			Individual bestest = fitness.getBestFitness(sParser.getSummaryItems(), best);
+			
+			IndividualWriter writer = new IndividualWriter();
+			writer.writeToFile("results.txt", bestest);
 		}
 	}
 }

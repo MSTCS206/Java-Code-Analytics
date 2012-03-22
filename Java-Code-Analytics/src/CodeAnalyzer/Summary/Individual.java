@@ -1,8 +1,10 @@
 package CodeAnalyzer.Summary;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import CodeAnalyzer.Rules.Node;
+import CodeAnalyzer.Rules.RulesGenerator;
 
 public class Individual 
 {
@@ -11,7 +13,7 @@ public class Individual
 	
 	public Individual()
 	{
-		
+		summary = new LinkedList<SummaryItem>();
 	}
 	
 	public void setRules(Node rules)
@@ -24,14 +26,13 @@ public class Individual
 		return rules;
 	}
 	
-	public void setSummary(List<SummaryItem> summary)
-	{
-		this.summary = summary;
-	}
-	
 	public List<SummaryItem> getSummary()
 	{
 		return summary;
 	}
 	
+	public String getRuleString()
+	{
+		return RulesGenerator.returnRuleString(rules);
+	}
 }
