@@ -66,23 +66,23 @@ public class RulesGenerator
 			switch(picked)
 			{
 				case NOM:
-					rule = new Rule(picked, 1 + random.nextInt(50), op);//(1, 50)
+					rule = new Rule(picked, 1 + random.nextInt(20), op);//(1, 20)
 					break;
 			
 				case NOF:
-					rule = new Rule(picked, random.nextInt(21), op);
+					rule = new Rule(picked, random.nextInt(11), op);
 					break;
 					
 				case MLOC:
-					rule = new Rule(picked, 5 + random.nextInt(96), op);//(5, 100)
+					rule = new Rule(picked, 5 + random.nextInt(76), op);//(5, 80)
 					break;
 					
 				case DIT:
-					rule = new Rule(picked, random.nextInt(5), op);//(0, 4);
+					rule = new Rule(picked, random.nextInt(3), op);//(0, 2);
 					break;
 					
 				case PAR:
-					rule = new Rule(picked, random.nextInt(13), op);//(0, 12);
+					rule = new Rule(picked, random.nextInt(7), op);//(0, 6);
 					break;
 					
 				case LCOM:
@@ -90,7 +90,7 @@ public class RulesGenerator
 					break;
 				
 				default://should never here, just go with NOM values
-					rule = new Rule(QualityMetric.NOM, 1 + random.nextInt(50), op);
+					rule = new Rule(QualityMetric.NOM, 1 + random.nextInt(20), op);
 					break;
 			}
 			
