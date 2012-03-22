@@ -6,21 +6,34 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener; 
+import java.awt.event.KeyEvent;
 
 import java.io.File;
 import javax.swing.JButton; 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+
+import CodeAnalyzer.DialogueGUI;
 
 public class FileChooser extends JFrame 
 {
-	private JTextField codeExampleTextField = new JTextField(), targetCodeTextField = new JTextField(), numIterationsTextField = new JTextField(), numSolutionsTextField = new JTextField();
+	private JTextField codeExampleTextField = new JTextField(),
+			targetCodeTextField = new JTextField(),
+			numIterationsTextField = new JTextField(),
+			numSolutionsTextField = new JTextField();
 	private JTextField maxNumRulesPerSolutionTextField = new JTextField();
 	
+	private JRadioButton useRulesGeneratorRadioButton = new JRadioButton();
+	private JRadioButton useLastRulesRadioButton = new JRadioButton();
+	
+	private JLabel useRulesGeneratorLabel = new JLabel("Use Rules Generator");
+	private JLabel useLastRulesLabel = new JLabel("Use Last Rules");
 	private JLabel codeExampleLabel = new JLabel("Code Example Path");
 	private JLabel targetExampleLabel = new JLabel("Target Path");
 	private JLabel numIterationsLabel = new JLabel("Num Iterations");
@@ -49,7 +62,26 @@ public class FileChooser extends JFrame
 		numIterationsTextField.setEditable(true);
 		
 		p = new JPanel();
-		p.setLayout(new GridLayout(5,2));
+		p.setLayout(new GridLayout(7,2));
+		
+		// radio buttons
+		useRulesGeneratorRadioButton.setMnemonic(KeyEvent.VK_B);
+		//useRulesGeneratorRadioButton.setActionCommand(birdString);
+		useRulesGeneratorRadioButton.setSelected(true);
+		
+		useLastRulesRadioButton.setMnemonic(KeyEvent.VK_C);
+		
+		//Group the radio buttons.
+	    ButtonGroup group = new ButtonGroup();
+	    group.add(useRulesGeneratorRadioButton);
+	    group.add(useLastRulesRadioButton);
+
+		
+		p.add(useRulesGeneratorLabel);
+		p.add(useRulesGeneratorRadioButton);
+		
+		p.add(useLastRulesLabel);
+		p.add(useLastRulesRadioButton);
 		
 		p.add(codeExampleLabel);
 		p.add(codeExampleTextField);
@@ -163,6 +195,9 @@ public class FileChooser extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			System.out.print("go button pressed\n");
+			DialogueGUI c = new DialogueGUI();
+			c.setSize(500, 350);
+			c.setVisible(true);
 		}
 	}
 }
