@@ -210,10 +210,6 @@ public class FileChooser extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			DialogueGUI c = new DialogueGUI();
-			c.setSize(500, 350);
-			c.setVisible(true);
-
 			MetricsParser mParser = new MetricsParser(targetCodeTextField.getText());
 			SourceParser sParser = new SourceParser(codeExampleTextField.getText());
 			
